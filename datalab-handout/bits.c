@@ -305,6 +305,7 @@ int howManyBits(int x) {
  *   Rating: 4
  */
 unsigned floatScale2(unsigned uf) {
+  // float: sign:1 + exp:8 + frac:23
   // special case 0, NaN, Infinity
   // int sign = uf >> 31;
   int e = (uf >> 23) & 0xff;
@@ -316,6 +317,7 @@ unsigned floatScale2(unsigned uf) {
     return uf;
     // Denormailized 
   if (e == 0)
+    // frac << 1 
     return ((uf & (1 << 31)) | (uf << 1));
     // other cases,just exponent add 1 
   return uf + (1 << 23);
